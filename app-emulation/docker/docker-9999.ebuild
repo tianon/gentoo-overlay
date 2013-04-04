@@ -28,6 +28,7 @@ DEPEND="
 RDEPEND="
 	app-arch/libarchive
 	app-emulation/lxc
+	net-firewall/iptables
 	net-misc/bridge-utils
 	net-misc/curl
 	sys-apps/iproute2
