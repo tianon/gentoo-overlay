@@ -32,6 +32,10 @@ RDEPEND="
 	net-misc/bridge-utils
 	net-misc/curl
 	sys-apps/iproute2
+	|| (
+		sys-fs/aufs3
+		sys-kernel/aufs-sources
+	)
 "
 
 src_install() {
