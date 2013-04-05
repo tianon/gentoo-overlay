@@ -38,10 +38,13 @@ RDEPEND="
 	)
 "
 
+src_compile() {
+	emake VERBOSE=1
+}
+
 src_install() {
 	dobin bin/docker
-	dodoc README.md
-	[[ ${PV} == *9999 ]] && dodoc CONTRIBUTING.md
+	dodoc AUTHORS CONTRIBUTING.md NOTICE README.md
 }
 
 pkg_postinst() {
