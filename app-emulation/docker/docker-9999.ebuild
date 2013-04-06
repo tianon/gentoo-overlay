@@ -50,3 +50,10 @@ src_install() {
 	dobin bin/docker
 	dodoc AUTHORS CONTRIBUTING.md NOTICE README.md
 }
+
+pkg_postinst() {
+	ewarn "If you want your containers to have access to the public internet or even"
+	ewarn "the existing private network, IP Forwarding must be enabled, ie:"
+	ewarn "  sysctl -w net.ipv4.ip_forward=1"
+	ewarn "Please be mindful of the security implications of enabling this feature."
+}
