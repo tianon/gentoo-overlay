@@ -45,8 +45,3 @@ src_install() {
 	dobin bin/docker
 	dodoc AUTHORS CONTRIBUTING.md NOTICE README.md
 }
-
-pkg_postinst() {
-	ewarn "Docker currently assumes a network bridge named lxcbr0 exists and is usable."
-	ewarn "See https://github.com/dotcloud/docker/issues/219 for more details."
-}
