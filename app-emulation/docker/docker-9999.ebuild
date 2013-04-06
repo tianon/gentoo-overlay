@@ -16,7 +16,7 @@ else
 	KEYWORDS="~amd64"
 fi
 
-inherit git-2
+inherit git-2 linux-info
 
 LICENSE="Apache-2.0"
 SLOT="0"
@@ -36,6 +36,11 @@ RDEPEND="
 		sys-kernel/aufs-sources
 	)
 "
+
+pkg_setup() {
+	CONFIG_CHECK+=" ~NETFILTER_XT_MATCH_ADDRTYPE"
+	check_extra_config
+}
 
 src_compile() {
 	emake VERBOSE=1
