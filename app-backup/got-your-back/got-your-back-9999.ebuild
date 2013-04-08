@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 DESCRIPTION="Got Your Back (GYB) is a command line tool for backing up your Gmail messages to your local computer."
 HOMEPAGE="https://code.google.com/p/got-your-back/"
@@ -18,6 +18,7 @@ else
 fi
 
 PYTHON_DEPEND="2"
+PYTHON_USE_WITH="sqlite"
 
 inherit subversion python
 
@@ -29,14 +30,8 @@ DEPEND="
 "
 RDEPEND="
 	${DEPEND}
-	dev-lang/python[sqlite]
 	dev-python/gdata
 "
-
-pkg_setup() {
-	python_set_active_version 2
-	python_pkg_setup
-}
 
 src_prepare() {
 	epatch "${FILESDIR}"/*.patch
