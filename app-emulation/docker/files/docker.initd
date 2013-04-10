@@ -1,0 +1,22 @@
+#!/sbin/runscript
+# Copyright 1999-2013 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+start() {
+	ebegin "Starting docker daemon"
+	start-stop-daemon --start --background --make-pidfile \
+		--exec /usr/bin/docker \
+		--pidfile /run/docker.pid \
+		--stderr /var/log/docker.log \
+		-- -d
+	eend $?
+}
+
+stop() {
+	ebegin "Stopping docker daemon"
+	start-stop-daemon --stop \
+		--exec /usr/bin/docker \
+		--pidfile /run/docker.pid
+	eend $?
+}
