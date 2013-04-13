@@ -3,20 +3,24 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+DOCKER_LOGFILE=${DOCKER_LOGFILE:-/var/log/${SVCNAME}.log}
+DOCKER_PIDFILE=${DOCKER_PIDFILE:-/run/${SVCNAME}.pid}
+DOCKER_BINARY=${DOCKER_BINARY:-/usr/bin/docker}
+
 start() {
 	ebegin "Starting docker daemon"
-	start-stop-daemon --start --background --make-pidfile \
-		--exec /usr/bin/docker \
-		--pidfile /run/docker.pid \
-		--stderr /var/log/docker.log \
-		-- -d
+	start-stop-daemon --start --background \
+		--exec "$DOCKER_BINARY" \
+		--pidfile "$DOCKER_PIDFILE" \
+		--stderr "$DOCKER_LOGFILE" \
+		-- -d -p "$DOCKER_PIDFILE"
 	eend $?
 }
 
 stop() {
 	ebegin "Stopping docker daemon"
 	start-stop-daemon --stop \
-		--exec /usr/bin/docker \
-		--pidfile /run/docker.pid
+		--exec "$DOCKER_BINARY" \
+		--pidfile "$DOCKER_PIDFILE"
 	eend $?
 }
