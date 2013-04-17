@@ -53,10 +53,12 @@ src_install() {
 }
 
 pkg_postinst() {
-	elog "An optional init script is included that runs the docker daemon."
+	elog "To use docker, the docker daemon must be running as root. To automatically"
+	elog "start the docker daemon at boot, add docker to the default runlevel:"
+	elog "  rc-update add docker default"
 	
 	ewarn "If you want your containers to have access to the public internet or even"
-	ewarn "the existing private network, IP Forwarding must be enabled, ie:"
+	ewarn "the existing private network, IP Forwarding must be enabled:"
 	ewarn "  sysctl -w net.ipv4.ip_forward=1"
 	ewarn "or more permanently:"
 	ewarn "  echo net.ipv4.ip_forward = 1 > /etc/sysctl.d/${PN}.conf"
