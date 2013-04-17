@@ -29,7 +29,6 @@ RDEPEND="
 	app-arch/libarchive
 	app-emulation/lxc
 	net-firewall/iptables
-	net-misc/curl
 	sys-apps/iproute2
 	|| (
 		sys-fs/aufs3
