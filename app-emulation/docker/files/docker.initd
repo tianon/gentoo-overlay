@@ -12,6 +12,7 @@ start() {
 	start-stop-daemon --start --background \
 		--exec "$DOCKER_BINARY" \
 		--pidfile "$DOCKER_PIDFILE" \
+		--stdout "$DOCKER_LOGFILE" \
 		--stderr "$DOCKER_LOGFILE" \
 		-- -d -p "$DOCKER_PIDFILE"
 	eend $?
