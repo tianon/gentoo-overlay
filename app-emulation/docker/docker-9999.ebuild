@@ -50,6 +50,10 @@ src_install() {
 	dodoc AUTHORS CONTRIBUTING.md NOTICE README.md
 	
 	newinitd "${FILESDIR}/${PN}.initd" "${PN}"
+	
+	insinto /usr/share/${P}/contrib
+	doins contrib/{README,mkimage-busybox.sh}
+	cp -R "${S}/contrib"/{docker-build,vagrant-docker} "${D}/usr/share/${P}/contrib/"
 }
 
 pkg_postinst() {
