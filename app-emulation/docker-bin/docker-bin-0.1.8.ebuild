@@ -6,27 +6,18 @@ EAPI=5
 
 DESCRIPTION="Docker complements LXC with a high-level API which operates at the process level. It runs unix processes with strong guarantees of isolation and repeatability across servers."
 HOMEPAGE="http://www.docker.io/"
-SRC_URI=""
+SRC_URI="http://get.docker.io/builds/Linux/x86_64/docker-v${PV}.tgz"
+KEYWORDS="-* ~amd64 ~x86"
 
-EGIT_REPO_URI="git://github.com/dotcloud/docker.git"
-if [[ ${PV} == *9999 ]]; then
-	KEYWORDS=""
-else
-	EGIT_COMMIT="v${PV}"
-	KEYWORDS="~amd64"
-fi
-
-inherit git-2 linux-info
+inherit linux-info
 
 LICENSE="Apache-2.0"
 SLOT="0"
 IUSE=""
 
-DEPEND="
-	dev-lang/go
-"
+DEPEND=""
 RDEPEND="
-	!app-emulation/docker-bin
+	!app-emulation/docker
 	app-arch/libarchive
 	app-emulation/lxc
 	net-firewall/iptables
@@ -37,24 +28,19 @@ RDEPEND="
 	)
 "
 
+RESTRICT="strip"
+
+S="${WORKDIR}/docker-v${PV}"
+
 pkg_setup() {
 	CONFIG_CHECK+=" ~NETFILTER_XT_MATCH_ADDRTYPE"
 	check_extra_config
 }
 
-src_compile() {
-	emake VERBOSE=1
-}
-
 src_install() {
-	dobin bin/docker
-	dodoc AUTHORS CONTRIBUTING.md NOTICE README.md
+	dobin docker
 	
 	newinitd "${FILESDIR}/docker.initd" docker
-	
-	insinto /usr/share/${P}/contrib
-	doins contrib/{README,mkimage-busybox.sh}
-	cp -R "${S}/contrib"/{docker-build,vagrant-docker} "${D}/usr/share/${P}/contrib/"
 }
 
 pkg_postinst() {
