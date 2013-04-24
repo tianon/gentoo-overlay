@@ -5,4 +5,4 @@
 
 After performing those steps, the following should work (or any other package from this overlay):
 
-	sudo emerge -av app-emulation/docker
+	sudo emerge -av app-emulation/lxc-docker
