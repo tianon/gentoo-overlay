@@ -53,7 +53,7 @@ src_install() {
 	newinitd "${FILESDIR}/docker.initd" docker
 	
 	insinto /usr/share/${P}/contrib
-	doins contrib/{README,mkimage-busybox.sh}
+	doins contrib/README contrib/mkimage-*
 	cp -R "${S}/contrib"/{docker-build,vagrant-docker} "${D}/usr/share/${P}/contrib/"
 }
 
