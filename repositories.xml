@@ -1,7 +1,7 @@
 <repositories version="1.0">
 	<repo quality="experimental" status="unofficial">
 		<name>tianon</name>
-		<description lang="en">tianon overlay</description>
+		<description lang="en">tianon's personal overlay</description>
 		<homepage>https://github.com/tianon/gentoo-overlay</homepage>
 		<owner type="person">
 			<name>Tianon Gravi</name>
