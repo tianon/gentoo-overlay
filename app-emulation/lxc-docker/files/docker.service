@@ -1,0 +1,10 @@
+[Unit]
+Description=Docker Service
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/docker -d -p /run/docker.pid
+PIDFile=/run/docker.pid
+
+[Install]
+WantedBy=multi-user.target

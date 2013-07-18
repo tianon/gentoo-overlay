@@ -16,7 +16,7 @@ else
 	KEYWORDS="~amd64"
 fi
 
-inherit git-2 linux-info
+inherit git-2 linux-info systemd
 
 LICENSE="Apache-2.0"
 SLOT="0"
@@ -51,6 +51,8 @@ src_install() {
 	dodoc AUTHORS CONTRIBUTING.md NOTICE README.md
 	
 	newinitd "${FILESDIR}/docker.initd" docker
+	
+	systemd_dounit "${FILESDIR}/docker.service"
 	
 	insinto /usr/share/${P}/contrib
 	doins contrib/README contrib/mkimage-*

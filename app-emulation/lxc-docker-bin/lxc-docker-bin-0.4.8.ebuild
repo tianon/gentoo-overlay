@@ -9,7 +9,7 @@ HOMEPAGE="http://www.docker.io/"
 SRC_URI="http://get.docker.io/builds/Linux/x86_64/docker-v${PV}.tgz"
 KEYWORDS="-* ~amd64 ~x86"
 
-inherit linux-info
+inherit linux-info systemd
 
 LICENSE="Apache-2.0"
 SLOT="0"
@@ -41,6 +41,8 @@ src_install() {
 	dobin docker
 	
 	newinitd "${FILESDIR}/docker.initd" docker
+	
+	systemd_dounit "${FILESDIR}/docker.service"
 }
 
 pkg_postinst() {
