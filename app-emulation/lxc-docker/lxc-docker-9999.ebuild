@@ -26,7 +26,7 @@ DEPEND="
 	dev-lang/go
 "
 RDEPEND="
-	!app-emulation/docker-bin
+	!app-emulation/lxc-docker-bin
 	app-arch/libarchive
 	app-emulation/lxc
 	net-firewall/iptables

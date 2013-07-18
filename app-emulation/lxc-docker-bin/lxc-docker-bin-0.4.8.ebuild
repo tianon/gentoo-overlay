@@ -17,7 +17,7 @@ IUSE=""
 
 DEPEND=""
 RDEPEND="
-	!app-emulation/docker
+	!app-emulation/lxc-docker
 	app-arch/libarchive
 	app-emulation/lxc
 	net-firewall/iptables
