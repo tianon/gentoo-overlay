@@ -37,6 +37,8 @@ RDEPEND="
 	)
 "
 
+RESTRICT="strip"
+
 pkg_setup() {
 	CONFIG_CHECK+=" ~NETFILTER_XT_MATCH_ADDRTYPE"
 	check_extra_config
