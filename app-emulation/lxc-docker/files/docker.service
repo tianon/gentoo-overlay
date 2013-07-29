@@ -1,10 +1,17 @@
 [Unit]
-Description=Docker Service
+Description=Docker - The Linux Container Engine
+Requires=network.target
+After=multi-user.target
+Type=simple
 
 [Service]
-Type=forking
+Nice=5
+ExecStartPre=/bin/mount --make-rprivate /
+ExecStartPre=/sbin/sysctl -w net.ipv4.ip_forward=1
 ExecStart=/usr/bin/docker -d -p /run/docker.pid
-PIDFile=/run/docker.pid
+ExecStop=/sbin/sysctl -w net.ipv4.ip_forward=0
+TimeoutSec=60
 
 [Install]
 WantedBy=multi-user.target
+Wants=network.target
