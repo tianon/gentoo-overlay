@@ -16,7 +16,7 @@ else
 	KEYWORDS="~amd64"
 fi
 
-inherit git-2 linux-info systemd
+inherit git-2 linux-info systemd bash-completion-r1
 
 LICENSE="Apache-2.0"
 SLOT="0"
@@ -59,6 +59,8 @@ src_install() {
 	insinto /usr/share/${P}/contrib
 	doins contrib/README contrib/mkimage-*
 	cp -R "${S}/contrib"/{docker-build,vagrant-docker} "${D}/usr/share/${P}/contrib/"
+	
+	test -e contrib/docker.bash && newbashcomp contrib/docker.bash docker
 }
 
 pkg_postinst() {
