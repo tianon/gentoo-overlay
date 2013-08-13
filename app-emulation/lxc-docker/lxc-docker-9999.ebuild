@@ -16,7 +16,7 @@ else
 	KEYWORDS="~amd64"
 fi
 
-inherit git-2 linux-info systemd bash-completion-r1 user
+inherit bash-completion-r1 git-2 linux-info systemd user
 
 LICENSE="Apache-2.0"
 SLOT="0"
