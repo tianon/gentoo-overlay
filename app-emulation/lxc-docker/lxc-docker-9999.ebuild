@@ -16,7 +16,7 @@ else
 	KEYWORDS="~amd64"
 fi
 
-inherit git-2 linux-info systemd bash-completion-r1
+inherit git-2 linux-info systemd bash-completion-r1 user
 
 LICENSE="Apache-2.0"
 SLOT="0"
@@ -60,18 +60,33 @@ src_install() {
 	doins contrib/README contrib/mkimage-*
 	cp -R "${S}/contrib"/{docker-build,vagrant-docker} "${D}/usr/share/${P}/contrib/"
 	
-	test -e contrib/docker.bash && newbashcomp contrib/docker.bash docker
+	if [ -e contrib/docker.bash ]; then
+		# install bash completion script if available
+		newbashcomp contrib/docker.bash docker
+	fi
 }
 
 pkg_postinst() {
+	elog ""
 	elog "To use docker, the docker daemon must be running as root. To automatically"
 	elog "start the docker daemon at boot, add docker to the default runlevel:"
 	elog "  rc-update add docker default"
+	elog ""
 	
+	if grep -q '/etc/group' "${S}"/*.go &> /dev/null; then
+		# create docker group if the code checking for it in /etc/group exists
+		enewgroup docker
+		
+		elog "To use docker as a non-root user, add yourself to the docker group."
+		elog ""
+	fi
+	
+	ewarn ""
 	ewarn "If you want your containers to have access to the public internet or even"
 	ewarn "the existing private network, IP Forwarding must be enabled:"
 	ewarn "  sysctl -w net.ipv4.ip_forward=1"
 	ewarn "or more permanently:"
 	ewarn "  echo net.ipv4.ip_forward = 1 > /etc/sysctl.d/${PN}.conf"
 	ewarn "Please be mindful of the security implications of enabling IP Forwarding."
+	ewarn ""
 }
