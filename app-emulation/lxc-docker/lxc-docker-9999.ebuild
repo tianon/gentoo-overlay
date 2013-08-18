@@ -23,7 +23,7 @@ SLOT="0"
 IUSE=""
 
 DEPEND="
-	dev-lang/go
+	>=dev-lang/go-1.1
 "
 RDEPEND="
 	!app-emulation/lxc-docker-bin
