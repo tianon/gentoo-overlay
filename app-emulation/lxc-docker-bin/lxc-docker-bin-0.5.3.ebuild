@@ -30,10 +30,12 @@ RDEPEND="
 
 RESTRICT="strip"
 
+ERROR_AUFS_FS="AUFS_FS is required to be set if and only if aufs-sources are used"
+
 S="${WORKDIR}/docker-v${PV}"
 
 pkg_setup() {
-	CONFIG_CHECK+=" ~NETFILTER_XT_MATCH_ADDRTYPE"
+	CONFIG_CHECK+=" ~NETFILTER_XT_MATCH_ADDRTYPE ~NF_NAT ~NF_NAT_NEEDED ~AUFS_FS"
 	check_extra_config
 }
 
@@ -46,14 +48,24 @@ src_install() {
 }
 
 pkg_postinst() {
+	elog ""
 	elog "To use docker, the docker daemon must be running as root. To automatically"
 	elog "start the docker daemon at boot, add docker to the default runlevel:"
 	elog "  rc-update add docker default"
+	elog ""
 	
+	# create docker group if the code checking for it in /etc/group exists
+	enewgroup docker
+	
+	elog "To use docker as a non-root user, add yourself to the docker group."
+	elog ""
+	
+	ewarn ""
 	ewarn "If you want your containers to have access to the public internet or even"
 	ewarn "the existing private network, IP Forwarding must be enabled:"
 	ewarn "  sysctl -w net.ipv4.ip_forward=1"
 	ewarn "or more permanently:"
 	ewarn "  echo net.ipv4.ip_forward = 1 > /etc/sysctl.d/${PN}.conf"
 	ewarn "Please be mindful of the security implications of enabling IP Forwarding."
+	ewarn ""
 }
