@@ -75,13 +75,11 @@ pkg_postinst() {
 	elog "  rc-update add docker default"
 	elog ""
 	
-	if grep -q '/etc/group' "${S}"/*.go &> /dev/null; then
-		# create docker group if the code checking for it in /etc/group exists
-		enewgroup docker
-		
-		elog "To use docker as a non-root user, add yourself to the docker group."
-		elog ""
-	fi
+	# create docker group if the code checking for it in /etc/group exists
+	enewgroup docker
+	
+	elog "To use docker as a non-root user, add yourself to the docker group."
+	elog ""
 	
 	ewarn ""
 	ewarn "If you want your containers to have access to the public internet or even"

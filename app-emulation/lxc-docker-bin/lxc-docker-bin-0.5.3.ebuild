@@ -7,7 +7,7 @@ EAPI=5
 DESCRIPTION="Docker complements LXC with a high-level API which operates at the process level. It runs unix processes with strong guarantees of isolation and repeatability across servers."
 HOMEPAGE="http://www.docker.io/"
 SRC_URI="http://get.docker.io/builds/Linux/x86_64/docker-v${PV}.tgz"
-KEYWORDS="-* ~amd64 ~x86"
+KEYWORDS="-* ~amd64"
 
 inherit linux-info systemd
 
