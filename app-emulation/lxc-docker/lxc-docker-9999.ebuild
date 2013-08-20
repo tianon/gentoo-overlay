@@ -39,8 +39,10 @@ RDEPEND="
 
 RESTRICT="strip"
 
+ERROR_AUFS_FS="AUFS_FS is required to be set if and only if aufs-sources are used"
+
 pkg_setup() {
-	CONFIG_CHECK+=" ~NETFILTER_XT_MATCH_ADDRTYPE"
+	CONFIG_CHECK+=" ~NETFILTER_XT_MATCH_ADDRTYPE ~NF_NAT ~NF_NAT_NEEDED ~AUFS_FS"
 	check_extra_config
 }
 
