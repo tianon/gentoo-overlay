@@ -24,6 +24,8 @@ IUSE=""
 
 DEPEND="
 	>=dev-lang/go-1.1
+	dev-vcs/git
+	dev-vcs/mercurial
 "
 RDEPEND="
 	!app-emulation/lxc-docker-bin
@@ -50,22 +52,23 @@ src_compile() {
 	if [ -f Makefile ]; then
 		emake VERBOSE=1
 	else
-		# they be stealing our Makefile!  hack patch the commands back in for now
-		DOCKER_PACKAGE='github.com/dotcloud/docker'
-		#GIT_ROOT="$(git rev-parse --show-toplevel)"
-		BUILD_DIR="$(pwd -P)"
-		export GOPATH="$BUILD_DIR/.gopath"
-		GIT_COMMIT="$(git rev-parse --short HEAD)"
-		GIT_STATUS="$(test -n "`git status --porcelain`" && echo "+CHANGES")"
-		SRC_DIR="$GOPATH/src"
-		DOCKER_DIR="$SRC_DIR/$DOCKER_PACKAGE"
-		DOCKER_MAIN="$DOCKER_DIR/docker"
-		DOCKER_BIN="$BUILD_DIR/bin/docker"
-		mkdir -p "$(dirname "$DOCKER_DIR")"
-		ln -sf "$BUILD_DIR/" "$DOCKER_DIR"
-		(cd "$DOCKER_MAIN" && go get -d -a -ldflags='-w -d' -v)
-		mkdir -p "$BUILD_DIR/bin"
-		(cd "$DOCKER_MAIN" && CGO_ENABLED=0 go build -a -ldflags='-w -d' -v -a -ldflags "-X main.GITCOMMIT $GIT_COMMIT$GIT_STATUS -d -w" -o "$DOCKER_BIN")
+		# they be stealing our Makefile!
+		
+		# commands stolen from Dockerfile (go get)
+		mkdir -p .gopath/src/github.com/dotcloud || die
+		ln -sf "$(pwd -P)" .gopath/src/github.com/dotcloud/docker || die
+		# the official revisions of the docker dependencies are in the Dockerfile directly, so we'll just do some lovely sed magic to snag those
+		grep $'run\tPKG=' Dockerfile \
+			| sed -r 's!^run\t([^;]+);\s*(git|hg).*(git\s+checkout\s+-f|hg\s+checkout).*$!(\1; \2 clone -q http://$PKG .gopath/src/$PKG \&\& cd .gopath/src/$PKG \&\& \3 -q $REV) || die!' \
+			| sh || die
+		
+		# commands stolen from hack/release/make.sh (go build)
+		export GOPATH="$(pwd -P)/.gopath"
+		VERSION=$(cat ./VERSION)
+		GITCOMMIT=$(git rev-parse --short HEAD)
+		test -n "$(git status --porcelain)" && GITCOMMIT="$GITCOMMIT-dirty"
+		mkdir -p bin || die
+		go build -v -o bin/docker -ldflags "-X main.GITCOMMIT $GITCOMMIT -X main.VERSION $VERSION -w" ./docker || die
 	fi
 }
 

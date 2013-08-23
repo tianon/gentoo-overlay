@@ -6,10 +6,10 @@ EAPI=5
 
 DESCRIPTION="Docker complements LXC with a high-level API which operates at the process level. It runs unix processes with strong guarantees of isolation and repeatability across servers."
 HOMEPAGE="http://www.docker.io/"
-SRC_URI="http://get.docker.io/builds/Linux/x86_64/docker-v${PV}.tgz"
+SRC_URI="https://get.docker.io/ubuntu/pool/main/l/lxc-docker-${PV}/lxc-docker-${PV}_${PV}_amd64.deb"
 KEYWORDS="-* ~amd64"
 
-inherit linux-info systemd
+inherit unpacker linux-info systemd
 
 LICENSE="Apache-2.0"
 SLOT="0"
@@ -32,7 +32,7 @@ RESTRICT="strip"
 
 ERROR_AUFS_FS="AUFS_FS is required to be set if and only if aufs-sources are used"
 
-S="${WORKDIR}/docker-v${PV}"
+S="${WORKDIR}"
 
 pkg_setup() {
 	CONFIG_CHECK+=" ~NETFILTER_XT_MATCH_ADDRTYPE ~NF_NAT ~NF_NAT_NEEDED ~AUFS_FS"
@@ -40,7 +40,7 @@ pkg_setup() {
 }
 
 src_install() {
-	dobin docker
+	dobin usr/bin/docker
 	
 	newinitd "${FILESDIR}/docker.initd" docker
 	
