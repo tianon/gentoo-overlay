@@ -18,7 +18,6 @@ IUSE=""
 DEPEND=""
 RDEPEND="
 	!app-emulation/lxc-docker
-	app-arch/libarchive
 	app-emulation/lxc
 	net-firewall/iptables
 	sys-apps/iproute2

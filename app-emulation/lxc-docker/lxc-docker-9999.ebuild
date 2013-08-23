@@ -29,7 +29,6 @@ DEPEND="
 "
 RDEPEND="
 	!app-emulation/lxc-docker-bin
-	app-arch/libarchive
 	app-emulation/lxc
 	net-firewall/iptables
 	sys-apps/iproute2
