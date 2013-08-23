@@ -47,7 +47,26 @@ pkg_setup() {
 }
 
 src_compile() {
-	emake VERBOSE=1
+	if [ -f Makefile ]; then
+		emake VERBOSE=1
+	else
+		# they be stealing our Makefile!  hack patch the commands back in for now
+		DOCKER_PACKAGE='github.com/dotcloud/docker'
+		#GIT_ROOT="$(git rev-parse --show-toplevel)"
+		BUILD_DIR="$(pwd -P)"
+		export GOPATH="$BUILD_DIR/.gopath"
+		GIT_COMMIT="$(git rev-parse --short HEAD)"
+		GIT_STATUS="$(test -n "`git status --porcelain`" && echo "+CHANGES")"
+		SRC_DIR="$GOPATH/src"
+		DOCKER_DIR="$SRC_DIR/$DOCKER_PACKAGE"
+		DOCKER_MAIN="$DOCKER_DIR/docker"
+		DOCKER_BIN="$BUILD_DIR/bin/docker"
+		mkdir -p "$(dirname "$DOCKER_DIR")"
+		ln -sf "$BUILD_DIR/" "$DOCKER_DIR"
+		(cd "$DOCKER_MAIN" && go get -d -a -ldflags='-w -d' -v)
+		mkdir -p "$BUILD_DIR/bin"
+		(cd "$DOCKER_MAIN" && CGO_ENABLED=0 go build -a -ldflags='-w -d' -v -a -ldflags "-X main.GITCOMMIT $GIT_COMMIT$GIT_STATUS -d -w" -o "$DOCKER_BIN")
+	fi
 }
 
 src_install() {
