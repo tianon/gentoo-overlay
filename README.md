@@ -13,3 +13,4 @@ After performing those steps, the following should work (or any other package fr
 The `app-emulation/lxc-docker` (and companion `app-emulation/lxc-docker-bin`) package has moved to its [own repository](https://github.com/tianon/docker-overlay).  For your convenience, that repository has been added to the repositories.xml file here so that you can simply invoke the following to keep up:
 
 	layman -f -a docker
+	layman -d tianon # optional, but you no longer need my personal overlay
