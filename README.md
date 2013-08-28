@@ -14,3 +14,7 @@ The `app-emulation/lxc-docker` (and companion `app-emulation/lxc-docker-bin`) pa
 
 	layman -f -a docker
 	layman -d tianon # optional, but you no longer need my personal overlay
+
+If you'd like to modify your `layman.cfg` to point to the docker-overlay `repositories.xml` file directly instead of mine, use something similar to the following:
+
+	sed -i 's!/tianon/gentoo-overlay/!/tianon/docker-overlay/!' /etc/layman/layman.cfg
