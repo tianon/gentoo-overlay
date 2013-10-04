@@ -4,7 +4,7 @@
 
 EAPI=5
 
-DESCRIPTION="Got Your Back (GYB) is a command line tool for backing up your Gmail messages to your local computer."
+DESCRIPTION="Got Your Back is a tool for backing up Gmail messages to your computer."
 HOMEPAGE="https://code.google.com/p/got-your-back/"
 SRC_URI=""
 
