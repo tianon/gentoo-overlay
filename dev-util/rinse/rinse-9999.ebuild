@@ -28,6 +28,10 @@ DEPEND="
 "
 RDEPEND="${DEPEND}"
 
+src_compile() {
+	:
+}
+
 src_install() {
 	emake PREFIX="${D}" install || die
 }
