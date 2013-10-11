@@ -18,7 +18,6 @@ IUSE=""
 
 DEPEND="
 	app-arch/sharutils
-	gnome-base/libgnomeui
 	sys-process/procps
 	virtual/jre
 "
