@@ -14,12 +14,13 @@ inherit unpacker gnome2-utils
 LICENSE="" # unknown
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE=""
+IUSE="gtk"
 
 DEPEND="
 	app-arch/sharutils
 	sys-process/procps
 	virtual/jre
+	gtk? ( gnome-base/libgnomeui )
 "
 RDEPEND="${DEPEND}"
 
