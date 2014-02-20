@@ -36,5 +36,5 @@ src_compile() {
 
 src_install() {
 	insinto /usr/share/debootstrap/scripts
-	doins scripts/{aequorea,bartholomea,staging}
+	doins $(grep --files-with-matches 'tanglu' scripts/*)
 }
