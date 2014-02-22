@@ -19,6 +19,9 @@ esac
 work_out_debs () {
 	required="$(get_debs Priority: required)"
 
+	# so, Valve is silly, and doesn't "require" valve-archive-keyring
+	required="$required valve-archive-keyring"
+
 	if doing_variant - || doing_variant fakechroot; then
 		#required="$required $(get_debs Priority: important)"
 		#  ^^ should be getting debconf here somehow maybe
