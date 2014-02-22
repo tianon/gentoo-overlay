@@ -27,5 +27,5 @@ src_compile() {
 
 src_install() {
 	insinto /usr/share/debootstrap/scripts
-	doins ${FILESDIR}/*
+	doins ${FILESDIR}/scripts/*
 }
