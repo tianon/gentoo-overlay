@@ -1,0 +1,38 @@
+#!/sbin/runscript
+# Copyright 1999-2014 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+: ${BTSYNC_BINARY:=/usr/bin/btsync}
+: ${BTSYNC_CONFIG:=/etc/btsync.conf}
+: ${BTSYNC_PIDFILE:=/run/btsync.pid}
+: ${BTSYNC_LOGFILE:=/var/log/btsync.log}
+: ${BTSYNC_USER:=nobody}
+: ${BTSYNC_GROUP:=nobody}
+
+depend() {
+	need localmount net
+}
+
+start() {
+	checkpath -f -m 0640 -o "${BTSYNC_USER}:${BTSYNC_GROUP}" "${BTSYNC_LOGFILE}"
+
+	ebegin "Starting ${SVCNAME}"
+	start-stop-daemon \
+		--start --background \
+		--exec "${BTSYNC_BINARY}" \
+		--make-pidfile \
+		--pidfile "${BTSYNC_PIDFILE}" \
+		--stdout "${BTSYNC_LOGFILE}" \
+		--stderr "${BTSYNC_LOGFILE}" \
+		--user "${BTSYNC_USER}" \
+		--group "${BTSYNC_GROUP}" \
+		-- --nodaemon --config "${BTSYNC_CONFIG}"
+	eend $?
+}
+
+stop() {
+	ebegin "Stopping ${SVCNAME}"
+	start-stop-daemon --stop --pidfile "${BTSYNC_PIDFILE}"
+	eend $?
+}

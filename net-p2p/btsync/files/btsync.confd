@@ -1,0 +1,10 @@
+# /etc/conf.d/btsync
+
+#BTSYNC_BINARY="/usr/bin/btsync"
+
+#BTSYNC_CONFIG="/etc/btsync.conf"
+
+#BTSYNC_PIDFILE="/run/btsync.pid"
+
+BTSYNC_USER="nobody"
+BTSYNC_GROUP="nobody"
