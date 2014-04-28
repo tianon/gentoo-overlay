@@ -6,7 +6,7 @@ EAPI=5
 
 DESCRIPTION="File sync without servers."
 HOMEPAGE="https://www.aerofs.com/"
-SRC_URI="http://cache.client.aerofs.com/${PN}-installer.deb -> ${P}.deb"
+SRC_URI="http://cache.client.aerofs.com/${PN}-installer-${PV}.deb"
 RESTRICT="mirror"
 
 inherit unpacker gnome2-utils
