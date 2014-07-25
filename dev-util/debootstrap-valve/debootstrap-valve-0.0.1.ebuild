@@ -4,7 +4,7 @@
 
 EAPI=5
 
-DESCRIPTION="Tanglu bootstrap scripts"
+DESCRIPTION="Valve (SteamOS) bootstrap scripts"
 HOMEPAGE=""
 SRC_URI="" # ... so, valve is kind of silly, and their "debootstrap" package is worthless (ie, the script inside is just a symlink: no default_mirror, no keyring, etc)
 
