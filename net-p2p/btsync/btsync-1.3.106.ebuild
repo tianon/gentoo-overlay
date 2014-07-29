@@ -7,6 +7,7 @@ EAPI=5
 DESCRIPTION="BitTorrent Sync allows you to syncronize directories"
 HOMEPAGE="http://www.bittorrent.com/sync"
 SRC_URI="amd64? ( http://syncapp.bittorrent.com/${PV}/${PN}_x64-${PV}.tar.gz )"
+# see also http://syncapp.bittorrent.com/1.3.106/
 
 RESTRICT="mirror"
 
