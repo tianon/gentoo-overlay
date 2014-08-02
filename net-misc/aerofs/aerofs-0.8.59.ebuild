@@ -26,14 +26,6 @@ RDEPEND="${DEPEND}"
 
 S="${WORKDIR}"
 
-pkg_nofetch() {
-	eerror "AeroFS does not use versioned filenames."
-	eerror "An ebuild version bump is probably required."
-	eerror ""
-	eerror "Please see the following URL for the current version number:"
-	eerror "https://support.aerofs.com/entries/23864878-Release-Notes"
-}
-
 src_install() {
 	cp -R * "${D}/"
 }
