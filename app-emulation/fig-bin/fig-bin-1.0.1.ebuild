@@ -6,8 +6,10 @@ EAPI=5
 
 DESCRIPTION="Fast, isolated development environments using Docker"
 HOMEPAGE="http://www.fig.sh"
+MY_PN="${PN%-bin}"
+MY_PV="${PV/_/-}"
 SRC_URI="
-	amd64? ( https://github.com/docker/fig/releases/download/${PV}/fig-Linux-x86_64 -> ${P}-Linux-x86_64 )
+	amd64? ( https://github.com/docker/fig/releases/download/${MY_PV}/${MY_PN}-Linux-x86_64 -> ${P}-Linux-x86_64 )
 "
 
 LICENSE="Apache-2.0"
@@ -23,5 +25,5 @@ RESTRICT="installsources strip"
 S="${DISTDIR}"
 
 src_install() {
-	newbin ${P}-Linux-x86_64 fig
+	newbin ${P}-Linux-x86_64 ${MY_PN}
 }
