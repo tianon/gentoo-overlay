@@ -23,7 +23,7 @@ RDEPEND="${DEPEND}"
 S="${WORKDIR}/${PN}"
 
 src_compile() {
-	:
+	sed -i 's/ --extract-over-symlinks / /g' bin/rinse
 }
 
 src_install() {
