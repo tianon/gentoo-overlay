@@ -27,7 +27,7 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-DEPEND=">=dev-lang/go-1.4"
+DEPEND=">=dev-lang/go-1.4:="
 RDEPEND="dev-vcs/git"
 
 src_prepare() {
