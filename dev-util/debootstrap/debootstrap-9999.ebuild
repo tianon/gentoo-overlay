@@ -8,7 +8,7 @@ inherit eutils
 DESCRIPTION="Debian/Ubuntu bootstrap scripts"
 HOMEPAGE="http://packages.qa.debian.org/d/debootstrap.html"
 SRC_URI="mirror://gentoo/devices.tar.gz"
-EGIT_REPO_URI="git://anonscm.debian.org/d-i/debootstrap.git"
+EGIT_REPO_URI="https://anonscm.debian.org/git/d-i/debootstrap.git"
 inherit git-r3
 
 LICENSE="MIT"
